@@ -10,7 +10,7 @@ import {interval, Subscription} from 'rxjs';
 })
 export class XmrigComponent implements OnInit, OnDestroy {
   public poolInfo: any;
-  private sub: Subscription;
+  private sub: Subscription = new Subscription();
 
   constructor(private xmrig: XmrigService, private notificationService: NotificationService) { }
 
@@ -23,18 +23,11 @@ export class XmrigComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-   // await this.setInstallConfig()
+
     this.config = await this.xmrig.checkInstallConfig()
 
     if(this.config['wallet']){
       this.wallet = this.config['wallet']
-//      this.poolInfo = await this.getHashVaultStats()
-//      console.log(this.poolInfo)
-//      this.sub = interval(30000).subscribe(async () => {
-//        this.poolInfo = await this.getHashVaultStats()
-//        console.log(this.poolInfo)
-//
-//      });
     }
     try{
       this.xmrigData.summary =  await this.xmrig.getData()
@@ -47,8 +40,6 @@ export class XmrigComponent implements OnInit, OnDestroy {
     }catch (e) {
 
     }
-
-    //console.log(await this.getHashVaultStats())
   }
 
   public async startXmrig() {

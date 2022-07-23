@@ -75,6 +75,8 @@ export class AppComponent implements OnInit, AfterContentInit {
 				return x.url.join('/').endsWith(this.router.url);
 			} else if (x['app']) {
 				return this.router.url.endsWith(x.app);
+			} else {
+				return 0
 			}
 		});
 	}
